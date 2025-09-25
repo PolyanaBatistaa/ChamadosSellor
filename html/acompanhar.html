@@ -52,7 +52,6 @@
 
     <!-- ⬇️ TABELA SERÁ RENDERIZADA AQUI -->
     <div id="data"></div>
-
   </div>
 
 <script>
@@ -79,7 +78,7 @@
         if (!data.length) return;
 
         const headers = data[0];
-		 const idIndex = headers.indexOf("ID");
+        const idIndex = headers.indexOf("ID");
         const cedenteIndex = headers.indexOf("Cedente");
         const responsavelIndex = headers.indexOf("Responsável");
         const sprintIndex = headers.indexOf("Sprint");
@@ -90,7 +89,7 @@
         html += `
           <thead>
             <tr>
-			<th>ID</th>
+              <th>ID</th>
               <th>Cedente</th>
               <th>Responsável</th>
               <th>Sprint</th>
@@ -102,16 +101,19 @@
           <tbody>
         `;
 
-        data.slice(1).forEach((row, i) => {
+        data.slice(1).forEach((row) => {
+            // Passa a linha inteira como JSON para o botão
+            const rowData = encodeURIComponent(JSON.stringify(row));
+
             html += `
               <tr>
-			  <td>${row[idIndex] || 'N/A'}</td>
+                <td>${row[idIndex] || 'N/A'}</td>
                 <td>${row[cedenteIndex] || 'N/A'}</td>
                 <td>${row[responsavelIndex] || 'N/A'}</td>
                 <td>${row[sprintIndex] || 'N/A'}</td>
                 <td>${row[servicoIndex] || 'N/A'}</td>
                 <td class="descricao-limitada">${row[descricaoIndex] || 'N/A'}</td>
-                <td><button class="ver-mais-btn" onclick="verMais(${i+1})">Ver Mais</button></td>
+                <td><button class="ver-mais-btn" onclick="verMais('${rowData}')">Ver Mais</button></td>
               </tr>
             `;
         });
@@ -141,9 +143,9 @@
         renderTable(filteredData);
     }
 
-    function verMais(rowIndex) {
+    function verMais(rowData) {
+        const row = JSON.parse(decodeURIComponent(rowData));
         const headers = originalData[0];
-        const row = originalData[rowIndex];
         const params = new URLSearchParams();
 
         headers.forEach((header, i) => {
