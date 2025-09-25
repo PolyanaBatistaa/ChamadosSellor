@@ -70,22 +70,20 @@
         if (!data.length) return;
 
         const headers = data[0];
-        const idIndex = headers.indexOf("ID");
         const cedenteIndex = headers.indexOf("Cedente");
         const responsavelIndex = headers.indexOf("Responsável");
         const sprintIndex = headers.indexOf("Sprint");
-        const servicoIndex = headers.indexOf("Serviço");
+        const sistemaIndex = headers.indexOf("Sistema");
         const descricaoIndex = headers.indexOf("Descrição do problema");
 
         let html = '<table>';
         html += `
           <thead>
             <tr>
-              <th>ID</th>
               <th>Cedente</th>
               <th>Responsável</th>
               <th>Sprint</th>
-              <th>Serviço</th>
+              <th>Sistema</th>
               <th>Descrição</th>
               <th>Ação</th>
             </tr>
@@ -99,11 +97,10 @@
 
             html += `
               <tr>
-                <td>${row[idIndex] || 'N/A'}</td>
                 <td>${row[cedenteIndex] || 'N/A'}</td>
                 <td>${row[responsavelIndex] || 'N/A'}</td>
                 <td>${row[sprintIndex] || 'N/A'}</td>
-                <td>${row[servicoIndex] || 'N/A'}</td>
+                <td>${row[sistemaIndex] || 'N/A'}</td>
                 <td class="descricao-limitada">${row[descricaoIndex] || 'N/A'}</td>
                 <td><button class="ver-mais-btn" onclick="verMais('${rowData}')">Ver Mais</button></td>
               </tr>
