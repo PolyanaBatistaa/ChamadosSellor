@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acompanhamento</title>
+  <link rel="icon" type="logo1/png" href="../img/logo1.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/acompanhar.css">
+  <style>
+    /* Truncar descrição com reticências */
+    .descricao-limitada {
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img src="../img/logob.png" alt="Logo">
+    <a class="back-btn" href="suporte.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+  </header>
+
+  <div class="menu11">
+    <div class="op selected">
+      <a href="acompanhar.html">Externo</a>
+    </div>
+    <div class="op">
+      <a href="acompanharinterno.html">Interno</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="filters">
+      <div class="filter-group">
+        <label for="responsavel">Filtrar por Responsável:</label>
+        <input type="text" id="responsavel" placeholder="Digite o responsável" oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label for="sprint">Filtrar por Sprint:</label>
+        <input type="text" id="sprint" placeholder="Digite a sprint" oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label for="servico">Filtrar por Serviço:</label>
+        <input type="text" id="servico" placeholder="Digite o serviço" oninput="applyFilters()">
+      </div>
+    </div>
+
+    <!-- ⬇️ TABELA SERÁ RENDERIZADA AQUI -->
+    <div id="data"></div>
+
+  </div>
+
+<script>
+    const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w'; 
+    const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww'; 
+    const range = 'Externo'; 
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    let originalData = [];
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.values) {
+                originalData = data.values;
+                renderTable(originalData);
+            } else {
+                console.error('Nenhum dado encontrado na planilha.');
+            }
+        })
+        .catch(error => console.error('Erro ao buscar dados:', error));
+
+    function renderTable(data) {
+        if (!data.length) return;
+
+        const headers = data[0];
+		 const idIndex = headers.indexOf("ID");
+        const cedenteIndex = headers.indexOf("Cedente");
+        const responsavelIndex = headers.indexOf("Responsável");
+        const sprintIndex = headers.indexOf("Sprint");
+        const servicoIndex = headers.indexOf("Serviço");
+        const descricaoIndex = headers.indexOf("Descrição do problema");
+
+        let html = '<table>';
+        html += `
+          <thead>
+            <tr>
+			<th>ID</th>
+              <th>Cedente</th>
+              <th>Responsável</th>
+              <th>Sprint</th>
+              <th>Serviço</th>
+              <th>Descrição</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
+
+        data.slice(1).forEach((row, i) => {
+            html += `
+              <tr>
+			  <td>${row[idIndex] || 'N/A'}</td>
+                <td>${row[cedenteIndex] || 'N/A'}</td>
+                <td>${row[responsavelIndex] || 'N/A'}</td>
+                <td>${row[sprintIndex] || 'N/A'}</td>
+                <td>${row[servicoIndex] || 'N/A'}</td>
+                <td class="descricao-limitada">${row[descricaoIndex] || 'N/A'}</td>
+                <td><button class="ver-mais-btn" onclick="verMais(${i+1})">Ver Mais</button></td>
+              </tr>
+            `;
+        });
+
+        html += '</tbody></table>';
+        document.getElementById('data').innerHTML = html;
+    }
+
+    function applyFilters() {
+        const responsavelFilter = document.getElementById('responsavel').value.toLowerCase();
+        const sprintFilter = document.getElementById('sprint').value.toLowerCase();
+        const servicoFilter = document.getElementById('servico').value.toLowerCase();
+
+        const headers = originalData[0];
+        const responsavelIndex = headers.indexOf("Responsável");
+        const sprintIndex = headers.indexOf("Sprint");
+        const servicoIndex = headers.indexOf("Serviço");
+
+        const filteredData = originalData.filter((row, index) => {
+            if (index === 0) return true;
+            const responsavelMatches = responsavelFilter ? row[responsavelIndex]?.toLowerCase().includes(responsavelFilter) : true;
+            const sprintMatches = sprintFilter ? row[sprintIndex]?.toLowerCase().includes(sprintFilter) : true;
+            const servicoMatches = servicoFilter ? row[servicoIndex]?.toLowerCase().includes(servicoFilter) : true;
+            return responsavelMatches && sprintMatches && servicoMatches;
+        });
+
+        renderTable(filteredData);
+    }
+
+    function verMais(rowIndex) {
+        const headers = originalData[0];
+        const row = originalData[rowIndex];
+        const params = new URLSearchParams();
+
+        headers.forEach((header, i) => {
+            params.append(header, row[i] || '');
+        });
+
+        window.location.href = `detalhe.html?${params.toString()}`;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login</title>
+	 <link rel="icon" type="logo1/png" href="img/logo1.png">
+    <link rel="stylesheet" href="css/login.css">
+    <style>
+        #msg {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="img/logob.png" class="logo" alt="Logo">
+    </header>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="formLogin" action="https://script.google.com/macros/s/AKfycbzDVpRVf0BYnnyUxFFGtYCDRutowvqb5BZoDWw_0JFfigiQYA4BXr6WqejIzf6ATJHo3Q/exec" method="POST">
+            <input type="email" id="email" name="email" placeholder="E-mail" required>
+            <input type="password" id="senha" name="senha" placeholder="Senha" required minlength="6">
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="msg"></p>
+        <p>Não tem conta? <a href="html/cadastrologin.html">Cadastre-se</a></p>
+    </div>
+
+<script>
+const form = document.getElementById('formLogin');
+const msgElement = document.getElementById('msg');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    msgElement.textContent = 'Carregando...';
+    msgElement.className = '';
+
+    const formData = new FormData(form);
+    const url = form.getAttribute('action');
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.text())
+    .then(text => {
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            console.warn("Resposta não era JSON:", text);
+            data = { success: false, message: "Erro inesperado." };
+        }
+
+        if (data.success) {
+            // Salva o nome no localStorage
+            if (data.nome) {
+                localStorage.setItem("nomeUsuario", data.nome);
+            }
+
+            msgElement.textContent = 'Login realizado! Redirecionando...';
+            msgElement.className = 'success';
+
+            setTimeout(() => {
+                window.location.href = data.destino || "acessonegado.html";
+            }, 2000);
+        } else {
+            msgElement.textContent = 'Erro: ' + data.message;
+            msgElement.className = 'error';
+
+            // Se o servidor já mandou página destino
+            if (data.destino) {
+                setTimeout(() => {
+                    window.location.href = data.destino;
+                }, 2000);
+            }
+        }
+    })
+    .catch(error => {
+        msgElement.textContent = 'Erro na requisição. Verifique sua conexão.';
+        msgElement.className = 'error';
+        console.error('Erro:', error);
+    });
+});
+</script>
+
+</body>
+</html>

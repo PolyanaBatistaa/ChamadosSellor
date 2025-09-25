@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abertura de Chamado</title>
+   <link rel="icon" type="logo1/png" href="../img/logo1.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <img src="../img/logob.png" alt="Logo">
+    <div class="user-info">
+      <span id="userName"></span>
+      <button class="logout-btn" onclick="window.location.href='../index.html'">Sair</button>
+    </div>
+  </header>
+
+  <!-- CARD -->
+  <div class="card">
+    <h2><i class="ri-file-list-3-line"></i> Abertura de Chamado</h2>
+
+    <!-- Escolha do Tipo -->
+    <div style="margin-bottom:20px;">
+      <label><i class="ri-exchange-line"></i> Tipo de Chamado</label>
+      <select id="tipoChamado">
+        <option value="">Selecione...</option>
+        <option value="interno">Interno</option>
+        <option value="externo">Externo</option>
+      </select>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <form id="formChamado" style="display:none;">
+      <div class="form-grid">
+        <div>
+          <label for="cedente"><i class="ri-building-line"></i> Cedente</label>
+          <select id="cedente" name="cedente" required>
+		            <option value="">Selecione...</option>
+					<option value="AC COMERCIAL IMP E EXPORTADORA LTDA - 07415554000107">AC COMERCIAL IMP E EXPORTADORA LTDA - 07415554000107 </option>
+					<option value="ACCO CENTRAL DE SERVICOS DE ACO LTDA - 38140899000110 ">ACCO CENTRAL DE SERVICOS DE ACO LTDA - 38140899000110 </option>
+                    <option value="ACOS CONTINENTE INDUSTRIA E COMERCIO LTDA - 00080714000157 ">ACOS CONTINENTE INDUSTRIA E COMERCIO LTDA - 00080714000157 </option>
+                    <option value="ACSO CENTRAL DE SERVICO DO ACO LTDA - 13692691000183 ">ACSO CENTRAL DE SERVICO DO ACO LTDA - 13692691000183 </option>
+                    <option value="ACTIVAS PLASTICOS INDUSTRIAIS LTDA - 00827591000175 ">ACTIVAS PLASTICOS INDUSTRIAIS LTDA - 00827591000175 </option>
+                    <option value="ALBAUGH AGRO BRASIL LTDA - 01789121000127 ">ALBAUGH AGRO BRASIL LTDA - 01789121000127 </option>
+                    <option value="ALMEIDA COMERCIO DISTRIBUIDOR DE MATERIAIS DE CONSTRUCAO LTD - 35419548000155 ">ALMEIDA COMERCIO DISTRIBUIDOR DE MATERIAIS DE CONSTRUCAO LTD - 35419548000155 </option>
+                    <option value="ALPHA CAVE COMERCIO DE VINHOS LTDA - 05995140000160 ">ALPHA CAVE COMERCIO DE VINHOS LTDA - 05995140000160 </option>
+                    <option value="ALQUIMIA PRODUTOS QUIMICOS PARA IND LTDA - 01137217000100 ">ALQUIMIA PRODUTOS QUIMICOS PARA IND LTDA - 01137217000100 </option>
+                    <option value="ANDRADE DISTRIBUIDOR LTDA - 03753945000172 ">ANDRADE DISTRIBUIDOR LTDA - 03753945000172 </option>
+                    <option value="ANJO QUIMICA DO BRASIL LTDA - 02921346000158 ">ANJO QUIMICA DO BRASIL LTDA - 02921346000158 </option>
+                    <option value="APERAM INOX AMERICA DO SUL S.A - 33390170000189">APERAM INOX AMERICA DO SUL S.A - 33390170000189</option>
+                    <option value="ATELIE DA CONSTRUCAO LTDA - 06242276000162  ">ATELIE DA CONSTRUCAO LTDA - 06242276000162  </option>
+                    <option value="ATMA PARTICIPAÇÕES S.A - 04032433000180">ATMA PARTICIPAÇÕES S.A - 04032433000180</option>
+                    <option value="BELGO BEKAERT ARAMES LTDA - 61074506000130 ">BELGO BEKAERT ARAMES LTDA - 61074506000130 </option>
+                    <option value="BIC AMAZONIA S/A - 04402277000100 ">BIC AMAZONIA S/A - 04402277000100 </option>
+                    <option value="CALCADOS MALU LTDA - EM REC JUD - 87018768001576 ">CALCADOS MALU LTDA - EM REC JUD - 87018768001576 </option>
+                    <option value="CAN-PACK BRASIL IND DE EMBALAGENS LTDA - 14855630000152 ">CAN-PACK BRASIL IND DE EMBALAGENS LTDA - 14855630000152 </option>
+                    <option value="CARTONAGEM JAUENSE LTDA - 50748748000145 ">CARTONAGEM JAUENSE LTDA - 50748748000145 </option>
+                    <option value="CASA DO ADUBO S/A - 28138113000177 ">CASA DO ADUBO S/A - 28138113000177 </option>
+                    <option value="CASAL COMERCIO E SERVICOS LTDA - 27338151000100 ">CASAL COMERCIO E SERVICOS LTDA - 27338151000100 </option>
+                    <option value="CEREAL OURO SEMENTES LTDA - 04712017000122 ">CEREAL OURO SEMENTES LTDA - 04712017000122 </option>
+                    <option value="CESDE IND E COM DE ELETRODOMESTICOS LTDA - 00153282000167 ">CESDE IND E COM DE ELETRODOMESTICOS LTDA - 00153282000167 </option>
+                    <option value="COLISEU PRESENTES LTDA - 19905295000173 ">COLISEU PRESENTES LTDA - 19905295000173 </option>
+                    <option value="COLOR VISAO DO BRASIL IND  ACRILICA LTDA - 47747969000194 ">COLOR VISAO DO BRASIL IND  ACRILICA LTDA - 47747969000194 </option>
+                    <option value="COMPANHIA BIOCHEMICALS DO BRASIL - 21539359000101  ">COMPANHIA BIOCHEMICALS DO BRASIL - 21539359000101  </option>
+                    <option value="COMPANHIA DOREL BRASIL PRODUTOS INFANTIS - 10659948000107 ">COMPANHIA DOREL BRASIL PRODUTOS INFANTIS - 10659948000107 </option>
+                    <option value="COMPRE FACIL COMERCIO DE PRODUTOS ALIMENTICIOS LTDA - 05955701000106 ">COMPRE FACIL COMERCIO DE PRODUTOS ALIMENTICIOS LTDA - 05955701000106 </option>
+                    <option value="COSMOQUIMICA INDUSTRIA E COMERCIO S.A - 60935608000130 ">COSMOQUIMICA INDUSTRIA E COMERCIO S.A - 60935608000130 </option>
+                    <option value="CRISTALFLEX IND ESPUMAS E COLCHOES LTDA - 04381961000144 ">CRISTALFLEX IND ESPUMAS E COLCHOES LTDA - 04381961000144 </option>
+                    <option value="DALILA TEXTIL LTDA - 82740903000173 ">DALILA TEXTIL LTDA - 82740903000173 </option>
+                    <option value="DCA DELTA CABLE AMERICAS LTDA - 00111511000180 ">DCA DELTA CABLE AMERICAS LTDA - 00111511000180 </option>
+                    <option value="DIST PITANGUEIRAS PROD AGROPECUARIOS S/A - 82069113000108 ">DIST PITANGUEIRAS PROD AGROPECUARIOS S/A - 82069113000108 </option>
+                    <option value="DOIS CUNHADOS IMP E EXP GEN ALIMENT LTD - 07256154000198 ">DOIS CUNHADOS IMP E EXP GEN ALIMENT LTD - 07256154000198 </option>
+                    <option value="EIXO SNETOR BRASIL COMERCIO INTERNACIONAL S.A - 08438580000105 ">EIXO SNETOR BRASIL COMERCIO INTERNACIONAL S.A - 08438580000105 </option>
+                    <option value="ELETRICA DANUBIO INDUSTRIA E COMERCIO DE MATERIAIS ELETRICOS - 61310256000190 ">ELETRICA DANUBIO INDUSTRIA E COMERCIO DE MATERIAIS ELETRICOS - 61310256000190 </option>
+                    <option value="EMPRESA DE TERMOPLASTICOS DO N E LTDA - 08516950000185 ">EMPRESA DE TERMOPLASTICOS DO N E LTDA - 08516950000185 </option>
+                    <option value="ENGEPACK EMBALAGENS SAO PAULO S.A - 59791962001716 ">ENGEPACK EMBALAGENS SAO PAULO S.A - 59791962001716 </option>
+                    <option value="FERTI SOLO INSUMOS AGRICOLAS LTDA - 08333830000142">FERTI SOLO INSUMOS AGRICOLAS LTDA - 08333830000142</option>
+                    <option value="FRESNOMAQ INDUSTRIA DE MAQUINAS S/A - 06337280000104 ">FRESNOMAQ INDUSTRIA DE MAQUINAS S/A - 06337280000104 </option>
+                    <option value="FRIGORIFICO EL'GOLLI LTDA - 02225085000131 ">FRIGORIFICO EL'GOLLI LTDA - 02225085000131 </option>
+                    <option value="GAMA-MPMAN - IMPORTACAO E EXP LTDA - 07112364000102 ">GAMA-MPMAN - IMPORTACAO E EXP LTDA - 07112364000102 </option>
+                    <option value="GDM INDUSTRIA E COM DE PLASTICOS LTDA - 07955100000110 ">GDM INDUSTRIA E COM DE PLASTICOS LTDA - 07955100000110 </option>
+                    <option value="GRAFICA SUPREMA EMBALAGENS LTDA. - 02275654000153 ">GRAFICA SUPREMA EMBALAGENS LTDA. - 02275654000153 </option>
+                    <option value="HD FERRO COMERCIAL DE ACOS LTDA - 48967134000102  ">HD FERRO COMERCIAL DE ACOS LTDA - 48967134000102  </option>
+                    <option value="HD FERRO COMERCIAL DE ACOS LTDA - 48967134000102 ">HD FERRO COMERCIAL DE ACOS LTDA - 48967134000102 </option>
+                    <option value="HINOVE AGROCIENCIA S A - 14031191000163 ">HINOVE AGROCIENCIA S A - 14031191000163 </option>
+                    <option value="HIPERFERRO COMERCIAL DE ACOS LTDA - 07278138000104">HIPERFERRO COMERCIAL DE ACOS LTDA - 07278138000104</option>
+                    <option value="HIPERFERRO INDUSTRIAL DE ACOS LTDA - 25037962000146  ">HIPERFERRO INDUSTRIAL DE ACOS LTDA - 25037962000146  </option>
+                    <option value="HIPERFERRO INDUSTRIAL DE ACOS LTDA - 25037962000146 ">HIPERFERRO INDUSTRIAL DE ACOS LTDA - 25037962000146 </option>
+                    <option value="IMIFARMA PROD FARM E COSMETICOS SA - 04899316000118 ">IMIFARMA PROD FARM E COSMETICOS SA - 04899316000118 </option>
+                    <option value="IMPRESS DECOR BRASIL-IND PAPEIS DEC LTDA - 02644907000119 ">IMPRESS DECOR BRASIL-IND PAPEIS DEC LTDA - 02644907000119 </option>
+                    <option value="IND DE PAPEIS E EMBALAGENS PONTE NOVA SA - 02625899000163 ">IND DE PAPEIS E EMBALAGENS PONTE NOVA SA - 02625899000163 </option>
+                    <option value="INDUSTRIA DE EMBALAGENS TOCANTINS S.A - 55417521000130 ">INDUSTRIA DE EMBALAGENS TOCANTINS S.A - 55417521000130 </option>
+                    <option value="INDUSTRIAL REX LTDA - 86403128000111 ">INDUSTRIAL REX LTDA - 86403128000111 </option>
+                    <option value="INFASA INDUSTRIA DE FARINHAS S.A - 08220994000163">INFASA INDUSTRIA DE FARINHAS S.A - 08220994000163</option>
+                    <option value="INGREDION BRASIL INGREDIENTES IND LTDA - 01730520000112 ">INGREDION BRASIL INGREDIENTES IND LTDA - 01730520000112 </option>
+                    <option value="INTELBRAS S A INDUSTRIA DE TELECOMUNICACAO ELETRONICA BRASIL - 82901000000127 ">INTELBRAS S A INDUSTRIA DE TELECOMUNICACAO ELETRONICA BRASIL - 82901000000127 </option>
+                    <option value="IRMAOS FISCHER SA IND E COM - 82984287000104 ">IRMAOS FISCHER SA IND E COM - 82984287000104 </option>
+                    <option value="KHRONOS INDUSTRIA COMERCIO E SERVICOS EM ELETRONICA LTDA - 78323094000127 ">KHRONOS INDUSTRIA COMERCIO E SERVICOS EM ELETRONICA LTDA - 78323094000127 </option>
+                    <option value="KLOECKNER METALS BRASIL LTDA - 08879248000186 ">KLOECKNER METALS BRASIL LTDA - 08879248000186 </option>
+                    <option value="KLOECKNER METALS BRASIL S/A - 08879248000186 ">KLOECKNER METALS BRASIL S/A - 08879248000186 </option>
+                    <option value="KOMLOG IMPORTAÇÃO LTDA-EM RECUP JUDICIAL - 06114935001580 ">KOMLOG IMPORTAÇÃO LTDA-EM RECUP JUDICIAL - 06114935001580 </option>
+                    <option value="LEVEL IMP EXP E COMERCIO S/A  - 09396439000150 ">LEVEL IMP EXP E COMERCIO S/A  - 09396439000150 </option>
+                    <option value="LUSTRES YAMAMURA LTDA - 45603529000138 ">LUSTRES YAMAMURA LTDA - 45603529000138 </option>
+                    <option value="MAIS POLIMEROS DO BRASIL LTDA - 07228128000156 ">MAIS POLIMEROS DO BRASIL LTDA - 07228128000156 </option>
+                    <option value="MANUCHAR AGRO COM IMP DE INS AGRIC LTDA - 31290918000146 ">MANUCHAR AGRO COM IMP DE INS AGRIC LTDA - 31290918000146 </option>
+                    <option value="MANUCHAR COMERCIO EXTERIOR LTDA - 86907235000187 ">MANUCHAR COMERCIO EXTERIOR LTDA - 86907235000187 </option>
+                    <option value="MARCHESAN IMPLEMENTOS E MAQUINAS AGRICOLAS TATU S A - 52311289000163 ">MARCHESAN IMPLEMENTOS E MAQUINAS AGRICOLAS TATU S A - 52311289000163 </option>
+                    <option value="MAZER DISTRIBUIDORA LTDA - 94623741000172  ">MAZER DISTRIBUIDORA LTDA - 94623741000172  </option>
+                    <option value="MAZURKY INDUSTRIA E COMERCIO DE EMBALAGENS LTDA - 06209559000102 ">MAZURKY INDUSTRIA E COMERCIO DE EMBALAGENS LTDA - 06209559000102 </option>
+                    <option value="MDG INDUSTRIA E COMERCIO DE PLASTICOS LTDA - 35474405000146 ">MDG INDUSTRIA E COMERCIO DE PLASTICOS LTDA - 35474405000146 </option>
+                    <option value="MEGA STEEL INDUSTRIA E COMERCIO IMPORTACAO E EXPORTACAO LTDA - 50666566000125 ">MEGA STEEL INDUSTRIA E COMERCIO IMPORTACAO E EXPORTACAO LTDA - 50666566000125 </option>
+                    <option value="METALOGALVA BRASIL INDUSTRIAL LTDA - 27537302000150 ">METALOGALVA BRASIL INDUSTRIAL LTDA - 27537302000150 </option>
+                    <option value="MIRVI BRASIL LTDA - 03529311000130 ">MIRVI BRASIL LTDA - 03529311000130 </option>
+                    <option value="MNS-COMERCIO DE PROD AGROPECUARIOS Ltda - 00248877000104 ">MNS-COMERCIO DE PROD AGROPECUARIOS Ltda - 00248877000104 </option>
+                    <option value="MOINHO TAQUARIENSE LTDA - 97834188000105 ">MOINHO TAQUARIENSE LTDA - 97834188000105 </option>
+                    <option value="MORAIS DE CASTRO COM IMP PROD QUIM LTDA - 15102809000100 ">MORAIS DE CASTRO COM IMP PROD QUIM LTDA - 15102809000100 </option>
+                    <option value="MULTIMOVEIS INDUSTRIA DE MOVEIS LTDA - 00349443000192 ">MULTIMOVEIS INDUSTRIA DE MOVEIS LTDA - 00349443000192 </option>
+                    <option value="NEOLAT COMERCIO DE LATICINIOS LTDA - 07876067000133 ">NEOLAT COMERCIO DE LATICINIOS LTDA - 07876067000133 </option>
+                    <option value="NOROACO COMERCIO DE FERRO E ACO LTDA - 08682259000171">NOROACO COMERCIO DE FERRO E ACO LTDA - 08682259000171</option>
+                    <option value="NOROACO RIO PRETO COMERCIO DE FERRO E ACO LTDA - 46833103000133">NOROACO RIO PRETO COMERCIO DE FERRO E ACO LTDA - 46833103000133</option>
+                    <option value="NOROMETAL BOTUCATU COM FERRO ACO LTDA - 44736728000151">NOROMETAL BOTUCATU COM FERRO ACO LTDA - 44736728000151</option>
+                    <option value="NOROMETAL COMERCIO DE FERRO E ACO LTDA - 35940620000195">NOROMETAL COMERCIO DE FERRO E ACO LTDA - 35940620000195</option>
+                    <option value="NUTRISUL SA PROD ALIMENTICIOS - 80972078000107">NUTRISUL SA PROD ALIMENTICIOS - 80972078000107</option>
+                    <option value="ODERCO DISTRIBUIDORA DE ELETRONICOS LTDA - 09301845000191 ">ODERCO DISTRIBUIDORA DE ELETRONICOS LTDA - 09301845000191 </option>
+                    <option value="OIW INDUSTRIA ELETRONICA S.A - 07212549000199  ">OIW INDUSTRIA ELETRONICA S.A - 07212549000199  </option>
+                    <option value="OIW INDUSTRIA ELETRONICA S.A - 07212549000199">OIW INDUSTRIA ELETRONICA S.A - 07212549000199</option>
+                    <option value="OLGA ALUMINIO LTDA - 03105276000122 ">OLGA ALUMINIO LTDA - 03105276000122 </option>
+                    <option value="PACALUB COMERCIO E LOGISTICA LTDA - 12702604000169 ">PACALUB COMERCIO E LOGISTICA LTDA - 12702604000169 </option>
+                    <option value="PARKS S/A COMUNICAÇÕES DIGITAIS - 92679331000118 ">PARKS S/A COMUNICAÇÕES DIGITAIS - 92679331000118 </option>
+                    <option value="PASTIFICIO SELMI S/A - 46025722000100 ">PASTIFICIO SELMI S/A - 46025722000100 </option>
+                    <option value="PAUTA DISTRIBUICAO E LOGISTICA S/A - 83064741000163 ">PAUTA DISTRIBUICAO E LOGISTICA S/A - 83064741000163 </option>
+                    <option value="PERFIPAR MANUFATURADOS DE ACO LTDA - 95816963000174 ">PERFIPAR MANUFATURADOS DE ACO LTDA - 95816963000174 </option>
+                    <option value="PERFIPAR S A MANUFATURADOS DE ACO EM RECUPERACAO JUDICIAL - 95816963000174 ">PERFIPAR S A MANUFATURADOS DE ACO EM RECUPERACAO JUDICIAL - 95816963000174 </option>
+                    <option value="PETROTUDO COM. ATAC. COMBUSTIVEIS LTDA - 02438322000142 ">PETROTUDO COM. ATAC. COMBUSTIVEIS LTDA - 02438322000142 </option>
+                    <option value="PETYAN INDUSTRIA DE ALIMENTOS LTDA - 14986335000135 ">PETYAN INDUSTRIA DE ALIMENTOS LTDA - 14986335000135 </option>
+                    <option value="PLASTAMP - IND E COM DE PLASTICOS LTDA - 53513230000544 ">PLASTAMP - IND E COM DE PLASTICOS LTDA - 53513230000544 </option>
+                    <option value="PLASZOM ZOMER INDUSTRIA DE PLASTICOS LTDA - 85285963000131 ">PLASZOM ZOMER INDUSTRIA DE PLASTICOS LTDA - 85285963000131 </option>
+                    <option value="PREMIER PESCADOS COM E IMP E EXP LTDA - 02782913000132 ">PREMIER PESCADOS COM E IMP E EXP LTDA - 02782913000132 </option>
+                    <option value="PRODUTEC COMERCIO E REPRESENTACOES SA - 00405805000115 ">PRODUTEC COMERCIO E REPRESENTACOES SA - 00405805000115 </option>
+                    <option value="PROMETEON TYRE GROUP IND BRASIL LTDA - 22301988000161 ">PROMETEON TYRE GROUP IND BRASIL LTDA - 22301988000161 </option>
+                    <option value="R C M CABOS ELETRICOS LTDA - 11792286000101 ">R C M CABOS ELETRICOS LTDA - 11792286000101 </option>
+                    <option value="R CERVELLINI REVESTIMENTOS LTDA - 44865657000197 ">R CERVELLINI REVESTIMENTOS LTDA - 44865657000197 </option>
+                    <option value="RAIN BIRD BRASIL LIMITADA - 03167227000114 ">RAIN BIRD BRASIL LIMITADA - 03167227000114 </option>
+                    <option value="RIOACO COMERCIO DE FERRO E ACO LTDA - 46572246000139">RIOACO COMERCIO DE FERRO E ACO LTDA - 46572246000139</option>
+                    <option value="ROGE BELEZA COMERCIO E DISTRIBUIDORA DE COSMETICOS LTDA - 28045448000140  ">ROGE BELEZA COMERCIO E DISTRIBUIDORA DE COSMETICOS LTDA - 28045448000140  </option>
+                    <option value="ROGE BELEZA COMERCIO E DISTRIBUIDORA DE COSMETICOS LTDA - 28045448000140">ROGE BELEZA COMERCIO E DISTRIBUIDORA DE COSMETICOS LTDA - 28045448000140</option>
+                    <option value="ROGE INTERG COM E DIST DE ALIM LTDA - 10829506000161  ">ROGE INTERG COM E DIST DE ALIM LTDA - 10829506000161  </option>
+                    <option value="ROGE INTERG COM E DIST DE ALIM LTDA - 10829506000161">ROGE INTERG COM E DIST DE ALIM LTDA - 10829506000161</option>
+                    <option value="ROGE SOL C D DE PROD DE HIG E LIMP LTDA - 30319272000110 ">ROGE SOL C D DE PROD DE HIG E LIMP LTDA - 30319272000110 </option>
+                    <option value="ROJEMAC IMPORTACAO E EXPORTACAO LIMITADA - 03764657000113 ">ROJEMAC IMPORTACAO E EXPORTACAO LIMITADA - 03764657000113 </option>
+                    <option value="SCHNEIDER ELETRIC BRASIL - 23640204000192  ">SCHNEIDER ELETRIC BRASIL - 23640204000192  </option>
+                    <option value="SCHNEIDER ELETRIC BRASIL - 23640204000192 ">SCHNEIDER ELETRIC BRASIL - 23640204000192 </option>
+                    <option value="SIDERURGICA SAO JOAQUIM S/A - 45365541000151 ">SIDERURGICA SAO JOAQUIM S/A - 45365541000151 </option>
+                    <option value="SINTESE LOGISTICA INDUSTRIA E COMEX LTDA - 40162634000165 ">SINTESE LOGISTICA INDUSTRIA E COMEX LTDA - 40162634000165 </option>
+                    <option value="SMALGLASS DO BRASIL - F E C CERAM LTDA - 86981966000172 ">SMALGLASS DO BRASIL - F E C CERAM LTDA - 86981966000172 </option>
+                    <option value="SND DISTRIBUICAO DE PRODUTOS DE INFORMATICA S/A - 02101894000131 ">SND DISTRIBUICAO DE PRODUTOS DE INFORMATICA S/A - 02101894000131 </option>
+                    <option value="SOGAMAX DISTR DE PRODUTOS FARMACEUTICOS  - 00857492000136 ">SOGAMAX DISTR DE PRODUTOS FARMACEUTICOS  - 00857492000136 </option>
+                    <option value="SOUFER INDUSTRIAL LTDA - 45987062000177 ">SOUFER INDUSTRIAL LTDA - 45987062000177 </option>
+                    <option value="STILE COMERCIAL LTDA - 05758306000125 ">STILE COMERCIAL LTDA - 05758306000125 </option>
+                    <option value="SUZANO S.A. - 16404287000155 ">SUZANO S.A. - 16404287000155 </option>
+                    <option value="SYLVAMO DO BRASIL LTDA - 52736949000158 ">SYLVAMO DO BRASIL LTDA - 52736949000158 </option>
+                    <option value="TACOSOLA BORRACHAS LTDA - 89313720000110 ">TACOSOLA BORRACHAS LTDA - 89313720000110 </option>
+                    <option value="TBM TEXTIL - INDUSTRIA E COMERCIO S.A. - 05435483000170 ">TBM TEXTIL - INDUSTRIA E COMERCIO S.A. - 05435483000170 </option>
+                    <option value="TCL SEMP I C CONDICIONADORES DE AR S.A - 26794410000145 ">TCL SEMP I C CONDICIONADORES DE AR S.A - 26794410000145 </option>
+                    <option value="TECNO IND E COM DE COMPUTADORES LTDA - 07272825000104  ">TECNO IND E COM DE COMPUTADORES LTDA - 07272825000104  </option>
+                    <option value="TECNO IND E COM DE COMPUTADORES LTDA - 07272825000104 ">TECNO IND E COM DE COMPUTADORES LTDA - 07272825000104 </option>
+                    <option value="TIMBRO DISTRIBUIDORA LTDA - 12128400000166 ">TIMBRO DISTRIBUIDORA LTDA - 12128400000166 </option>
+                    <option value="TIMBRO TRADING S.A. - 12116971000180 ">TIMBRO TRADING S.A. - 12116971000180 </option>
+                    <option value="TOTAL FLEX INDUSTRIA DE EMBALAGENS LTDA - 07350344000170 ">TOTAL FLEX INDUSTRIA DE EMBALAGENS LTDA - 07350344000170 </option>
+                    <option value="TUBOS OLIVEIRA LTDA - 57424244000119 ">TUBOS OLIVEIRA LTDA - 57424244000119 </option>
+                    <option value="Outros">Outros</option>
+
+          </select>
+        </div>
+        <div>
+          <label for="solicitante"><i class="ri-user-line"></i> Solicitante</label>
+          <select id="solicitante" name="solicitante" required>
+            <option value="">Selecione...</option>
+            <option value="Amanda">Amanda</option>
+            <option value="Andrea">Andrea</option>
+            <option value="Bruno ">Bruno </option>
+            <option value="Caroline">Caroline</option>
+            <option value="Dayane">Dayane</option>
+            <option value="Erika">Erika</option>
+            <option value="Fernanda">Fernanda</option>
+            <option value="Geovana">Geovana</option>
+            <option value="Gleicy">Gleicy</option>
+            <option value="Guilherme">Guilherme</option>
+            <option value="Jeise">Jeise</option>
+            <option value="João">João</option>
+            <option value="Laura Giusti">Laura Giusti</option>
+            <option value="Lucas">Lucas</option>
+            <option value="Maryane">Maryane</option>
+            <option value="Murilo">Murilo</option>
+            <option value="Rosana">Rosana</option>
+            <option value="Rose">Rose</option>
+            <option value="Sandra">Sandra</option>
+            <option value="Stephany">Stephany</option>
+            <option value="Thiago Gonçalves">Thiago Gonçalves</option>
+            <option value="Tiago Akissue">Tiago Akissue</option>
+            <option value="Cedente">Cedente</option>
+            <option value="Outro">Outro</option>
+
+          </select>
+        </div>
+        <div>
+          <label for="veiculo"><i class="ri-car-line"></i> Veículo</label>
+          <select id="veiculo" name="veiculo">
+            <option value="">Selecione...</option>
+          <option value="Teams">Teams</option>
+						<option value="E-mail">E-mail</option>
+						<option value="Whatsapp">Whatsapp</option>
+						<option value="Pessoalmente">Pessoalmente</option>
+						<option value="Telefone">Telefone</option>                   
+					</select>
+          </select>
+        </div>
+  
+        <input type="hidden" id="sprint" name="sprint" value="Sprint Atual">
+
+        <div>
+          <label for="causa"><i class="ri-bug-line"></i> Causa</label>
+          <select id="causa" name="causa">
+						<option value="">Selecione...</option>
+						<option value="Erro do Sistema ">Erro do Sistema </option>
+						<option value="Erro Humano">Erro Humano</option>
+						<option value="Inconsistência Temporária">Inconsistência Temporária</option>
+						<option value="Dúvida de Uso">Dúvida de Uso</option>
+						<option value="Solicitação Operacional     ">Solicitação Operacional     </option>
+
+          </select>
+        </div>
+
+        <!-- Campos dinâmicos -->
+        <div id="campoServico" style="display:none;">
+          <label for="servico"><i class="ri-tools-line"></i> Serviço</label>
+          <select id="servico" name="servico">
+            <option value="">Selecione...</option>
+           
+<option value="Subida de Operação">Subida de Operação</option>
+<option value="Portal (Duvidas)">Portal (Duvidas)</option>
+<option value="Acesso ao Portal">Acesso ao Portal</option>
+<option value="Homologação">Homologação</option>
+<option value="Certificadora">Certificadora</option>
+<option value="API">API</option>
+<option value="Memorial de Cálculo">Memorial de Cálculo</option>
+<option value="Arquivos  (Retorno, Remessa, Boleto e Xml)">Arquivos  (Retorno, Remessa, Boleto e Xml)</option>
+<option value="Apresentação do Portal">Apresentação do Portal</option>
+<option value="Outros">Outros</option>
+
+          </select>
+        </div>
+
+        <div id="campoSistema" style="display:none;">
+          <label for="sistema"><i class="ri-computer-line"></i> Sistema</label>
+          <select id="sistema" name="sistema">
+            <option value="">Selecione...</option>
+            <option value="Certificadora">Certificadora</option>
+<option value="Sigs Produção">Sigs Produção</option>
+<option value="SQL">SQL</option>
+<option value="Portal">Portal</option>
+<option value="CRM">CRM</option>
+<option value="Memorial de Cálculo">Memorial de Cálculo</option>
+<option value="Sigs Web">Sigs Web</option>
+<option value="Relatório">Relatório</option>
+<option value="Parametrização">Parametrização</option>
+<option value="Opera Facil">Opera Facil</option>
+<option value="Verificar Disparo">Verificar Disparo</option>
+<option value="Forçar Fechamento de Ciclo">Forçar Fechamento de Ciclo</option>
+<option value="Abrir Operação ">Abrir Operação </option>
+<option value="Remessa/Retorno">Remessa/Retorno</option>
+<option value="Motor">Motor</option>
+<option value="Outros">Outros</option>
+
+          </select>
+        </div>
+
+        <div>
+          <label for="anexo"><i class="ri-attachment-2"></i> Anexo</label>
+          <input type="file" id="anexo" name="anexo">
+        </div>
+      </div>
+
+      <div>
+        <label for="descricao"><i class="ri-edit-line"></i> Descrição do problema</label>
+        <textarea id="descricao" name="descricao" rows="3" required></textarea>
+      </div>
+      <div>
+        <label for="solucao"><i class="ri-lightbulb-flash-line"></i> Solução</label>
+        <textarea id="solucao" name="solucao" rows="3"></textarea>
+      </div>
+
+      <div class="btn-container">
+        <button type="submit" class="btn"><i class="ri-check-double-line"></i> Cadastrar</button>
+        <button type="button" class="btn" onclick="window.location.href='suporte.html'"><i class="ri-arrow-left-line"></i> Voltar</button>
+      </div>
+    </form>
+    <p id="msg"></p>
+  </div>
+
+ <script>
+    const tipoChamado = document.getElementById("tipoChamado");
+    const form = document.getElementById("formChamado");
+    const msg = document.getElementById("msg");
+    const userName = document.getElementById("userName");
+    const campoServico = document.getElementById("campoServico");
+    const campoSistema = document.getElementById("campoSistema");
+    const sprintInput = document.getElementById("sprint"); // Campo Sprint
+
+    // Exibe nome do usuário no header
+    userName.textContent = localStorage.getItem("nomeUsuario") || "Usuário";
+
+    // Mostra/oculta campos conforme o tipo de chamado
+    tipoChamado.addEventListener("change", () => {
+      if (tipoChamado.value === "interno") {
+        form.style.display = "block";
+        campoSistema.style.display = "block";
+        campoServico.style.display = "none";
+      } else if (tipoChamado.value === "externo") {
+        form.style.display = "block";
+        campoServico.style.display = "block";
+        campoSistema.style.display = "none";
+      } else {
+        form.style.display = "none";
+        campoServico.style.display = "none";
+        campoSistema.style.display = "none";
+      }
+    });
+
+    function voltar() { window.history.back(); }
+    function logout() { localStorage.removeItem("nomeUsuario"); window.location.href = "login.html"; }
+
+    // ===== FUNÇÃO PARA DEFINIR SPRINT COM BASE NA DATA =====
+    function definirSprint() {
+      const hoje = new Date();
+      const data = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+
+      const sprints = [
+        { inicio: "2025-09-16", fim: "2025-09-29", sprint: "Sprint 136" },
+        { inicio: "2025-09-30", fim: "2025-10-13", sprint: "Sprint 137" },
+        { inicio: "2025-10-14", fim: "2025-10-27", sprint: "Sprint 138" },
+        { inicio: "2025-10-28", fim: "2025-11-10", sprint: "Sprint 139" },
+        { inicio: "2025-11-11", fim: "2025-11-24", sprint: "Sprint 140" },
+        { inicio: "2025-11-25", fim: "2025-12-08", sprint: "Sprint 141" },
+        { inicio: "2025-12-09", fim: "2025-12-22", sprint: "Sprint 142" },
+        { inicio: "2025-12-23", fim: "2026-01-05", sprint: "Sprint 143" }
+      ];
+
+      function parseData(str) {
+        const [ano, mes, dia] = str.split("-");
+        return new Date(Number(ano), Number(mes) - 1, Number(dia));
+      }
+
+      let sprintAtual = "";
+      sprints.forEach(periodo => {
+        const inicio = parseData(periodo.inicio);
+        const fim = parseData(periodo.fim);
+        if (data >= inicio && data <= fim) {
+          sprintAtual = periodo.sprint;
+        }
+      });
+
+      sprintInput.value = sprintAtual || "Fora de Sprint definida";
+    }
+
+    // Executa quando a página carrega
+    window.addEventListener("load", definirSprint);
+
+    // ===== ENVIO DO FORM =====
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      msg.textContent = "Enviando...";
+      msg.className = "";
+
+      const formData = new FormData(form);
+      const nomeUsuario = localStorage.getItem("nomeUsuario") || "Desconhecido";
+      formData.append("responsavel", nomeUsuario);
+
+      // Adiciona tipoChamado e Sprint
+      formData.append("tipoChamado", tipoChamado.value);
+      formData.append("sprint", sprintInput.value);
+
+      const fileInput = document.getElementById('anexo');
+      const file = fileInput.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function() {
+          const base64Data = reader.result.split(',')[1];
+          formData.append("anexoBase64", base64Data);
+          formData.append("anexoNome", file.name);
+          enviarForm(formData);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        enviarForm(formData);
+      }
+    });
+
+    function enviarForm(formData) {
+      fetch("https://script.google.com/macros/s/AKfycbxFnFjOcxWQEAmAgXc367eptWcSfD4v3AJHlGjtewomYclk4C39rfYI-P8kO5nOHOTN2g/exec", {
+        method: "POST",
+        body: formData
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          msg.textContent = "Chamado cadastrado com sucesso!";
+          form.reset();
+          definirSprint(); // Recalcula sprint após resetar o formulário
+        } else {
+          msg.textContent = "Erro: " + data.message;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        msg.textContent = "Erro na requisição.";
+      });
+    }
+	 // Função para carregar os cedentes do localStorage
+    function carregarCedentes() {
+      const selectCedente = document.getElementById("cedente");
+
+      // Recupera os cedentes do localStorage
+      const novosCedentes = JSON.parse(localStorage.getItem("novosCedentes") || "[]");
+
+      // Adiciona dinamicamente os cedentes salvos
+      novosCedentes.forEach(c => {
+        const option = document.createElement("option");
+        option.value = `${c.nome} - ${c.cnpj}`;
+        option.textContent = `${c.nome} - ${c.cnpj}`;
+        selectCedente.appendChild(option);
+      });
+    }
+
+    // Carregar assim que abrir a página
+    document.addEventListener("DOMContentLoaded", carregarCedentes);
+
+    // Mostrar formulário quando selecionar tipo
+    document.getElementById("tipoChamado").addEventListener("change", function() {
+      const form = document.getElementById("formChamado");
+      form.style.display = this.value ? "block" : "none";
+    });
+</script>
+
+</body>
+</html>

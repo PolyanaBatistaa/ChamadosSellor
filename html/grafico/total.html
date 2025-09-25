@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos</title>
+    <link rel="icon" type="image/png" href="../../img/logo1.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="header">
+  <img src="../../img/logob.png" alt="Logo">
+  <h1><i class="ri-bar-chart-2-fill"></i> Gráficos</h1>
+  <a class="back-btn" href="../suporte.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+</header>
+
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav class="menu">
+                <a href="total.html" class="menu-item active">Total de Chamados</a>
+                <a href="externoxinterno.html" class="menu-item">Externo x Interno</a>
+                <a href="responsavel.html" class="menu-item">Responsável</a>
+                <a href="externo.html" class="menu-item">Externo - Serviço</a>
+                <a href="interno.html" class="menu-item">Interno - Sistemas</a>
+                <a href="causaexterno.html" class="menu-item">Causas</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h2>Total de Chamados por Sprint (Interno + Externo)</h2>
+        <canvas id="totalPorSprintChart" style="width: 100%; height: 100%;"></canvas>
+
+        </main>
+    </div>
+
+    <script>
+        const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w';
+        const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww';
+        const ranges = ['Interno', 'Externo'];
+
+        Promise.all(
+            ranges.map(range =>
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`)
+                    .then(res => res.json())
+                    .then(json => ({ range, values: json.values || [] }))
+            )
+        ).then(results => {
+            const dataInterno = results.find(r => r.range === 'Interno').values;
+            const dataExterno = results.find(r => r.range === 'Externo').values;
+            processSprintsData(dataInterno, dataExterno);
+        }).catch(error => {
+            console.error('Erro ao buscar dados:', error);
+        });
+
+        function processSprintsData(dataInterno, dataExterno) {
+            const headersInterno = dataInterno[0];
+            const headersExterno = dataExterno[0];
+            const sprintIndexInterno = headersInterno.indexOf("Sprint");
+            const sprintIndexExterno = headersExterno.indexOf("Sprint");
+
+            const countPorSprint = {};
+
+            dataInterno.slice(1).forEach(row => {
+                const sprint = row[sprintIndexInterno] || "Sem Sprint";
+                countPorSprint[sprint] = (countPorSprint[sprint] || 0) + 1;
+            });
+
+            dataExterno.slice(1).forEach(row => {
+                const sprint = row[sprintIndexExterno] || "Sem Sprint";
+                countPorSprint[sprint] = (countPorSprint[sprint] || 0) + 1;
+            });
+
+            const sprints = Object.keys(countPorSprint).sort((a, b) => {
+                const getNumber = str => parseInt(str.match(/\d+/)) || 0;
+                return getNumber(a) - getNumber(b);
+            });
+
+            const totalChamados = sprints.map(s => countPorSprint[s]);
+
+            new Chart(document.getElementById('totalPorSprintChart'), {
+                type: 'bar',
+                data: {
+                    labels: sprints,
+                    datasets: [{
+                        label: 'Total de Chamados',
+                        data: totalChamados,
+                        backgroundColor: '#6c63ff',
+                        borderColor: '#6c63ff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

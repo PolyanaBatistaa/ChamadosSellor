@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Gráficos</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0c442c;
+      --secondary: #549484;
+      --light: #f5f7f8;
+      --white: #fff;
+      --gray: #e8ecef;
+      --text: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: var(--white);
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--gray);
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    nav button {
+      background: var(--gray);
+      border: none;
+      padding: .6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    nav button.active,
+    nav button:hover {
+      background: var(--secondary);
+      color: var(--white);
+    }
+
+    main {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: .8rem;
+    }
+
+    .chart-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    @media(min-width: 768px) {
+      main {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(min-width: 1200px) {
+      main {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="ri-bar-chart-2-fill"></i> Gráficos</h1>
+    <button style="background:transparent; border:1px solid #fff; padding:.5rem 1rem; border-radius:8px; color:white;">Voltar</button>
+  </header>
+
+  <nav>
+    <button class="active">Total de Chamados</button>
+    <button>Externo x Interno</button>
+    <button>Responsável</button>
+    <button>Externo - Serviço</button>
+    <button>Interno - Sistemas</button>
+    <button>Causas</button>
+  </nav>
+
+  <main>
+    <div class="card">
+      <h2>Chamados Interno por (Sistemas)</h2>
+      <div class="chart-container">
+        <!-- Aqui entra o gráfico (Chart.js, Plotly, ECharts, etc) -->
+        <canvas id="grafico1"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('grafico1');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Sprint 136','Sprint 135','Sprint 134','Sprint 133'],
+        datasets: [
+          { label: 'CRM', data: [12,19,3,5], backgroundColor: '#36a2eb' },
+          { label: 'Portal', data: [5,10,15,20], backgroundColor: '#ff6384' },
+          { label: 'API', data: [8,14,6,12], backgroundColor: '#4caf50' }
+        ]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        plugins: {
+          legend: { position: 'right' }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

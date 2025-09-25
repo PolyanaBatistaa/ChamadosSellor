@@ -1,0 +1,122 @@
+
+    :root {
+      --primary: #4caf50;
+      --primary-hover: #45a049;
+      --background: #f5f6fa;
+      --card-bg: #fff;
+      --text-dark: #333;
+      --text-light: #555;
+      --border-color: #e1e1e1;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #0c442c 30%, #549484 65%, #acf3f3 100%);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+header img {
+  height: 50px;
+}
+  .container {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #d5c874;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 25px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .value {
+      background: #fafafa;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-light);
+    }
+
+    .value a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .value a:hover {
+      text-decoration: underline;
+    }
+
+.back-btn {
+  position: relative;  /* tiramos o absolute */
+  margin-left: auto;   /* empurra o botão para a direita */
+  margin-right: 60px;  /* dá um respiro da borda */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #d5c874;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+
+.back-btn:hover {
+  background: #0d402d;
+  transform: translateY(-10%) scale(1.0);
+}
+
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px;
+      }
+      .label {
+        font-size: 0.95rem;
+      }
+      .value {
+        font-size: 0.9rem;
+      }
+    }

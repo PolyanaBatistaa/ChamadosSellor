@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Acesso Não Liberado</title>
+    <style>
+        /* Reset básico */
+        body, h2, p {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("../img/fundo.png") no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Logo canto superior esquerdo */
+        header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo {
+            height: 100px; /* ajuste conforme o tamanho do logo */
+        }
+
+        /* Container centralizado */
+        .message-container {
+            width: 400px;
+            padding: 30px;
+            background: rgba(240, 240, 240, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .message-container h2 {
+            margin-bottom: 15px;
+            color: #123d2a;
+        }
+
+        .message-container p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .message-container a {
+            color: #0d3d2a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Botão voltar */
+        .btn-voltar {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0d3d2a;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background-color: #145c40;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../img/logob.png" class="logo" alt="Logo">
+    </header>
+
+    <div class="message-container">
+        <h2>Acesso Não Liberado</h2>
+        <p>Seu acesso ainda não foi liberado. Para mais informações, contate: <br>
+        <a href="mailto:polyana.batista@sellor.com.br">polyana.batista@sellor.com.br</a></p>
+		<button class="btn-voltar" onclick="window.location.href='../index.html'">Voltar</button>
+
+
+    </div>
+
+    <script>
+        function voltar() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos</title>
+    <link rel="icon" type="image/png" href="../../img/logo1.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+
+</head>
+<body>
+<header class="header">
+  <img src="../../img/logob.png" alt="Logo">
+  <h1><i class="ri-bar-chart-2-fill"></i> Gráficos</h1>
+  <a class="back-btn" href="../suporte.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+</header>
+
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav class="menu">
+                <a href="total.html" class="menu-item ">Total de Chamados</a>
+                <a href="externoxinterno.html" class="menu-item">Externo x Interno</a>
+                <a href="responsavel.html" class="menu-item ">Responsável</a>
+                <a href="externo.html" class="menu-item ">Externo - Serviço</a>
+                <a href="interno.html" class="menu-item ">Interno - Sistemas</a>
+                <a href="causaexterno.html" class="menu-item active">Causas</a>
+            </nav>
+        </aside>
+<main class="main-content">
+            <h2>Causas por Sprint</h2>
+        <div class="filtros">
+
+      <label><input type="radio" name="fonte" value="Externo"> Externo</label>
+	        <label><input type="radio" name="fonte" value="Interno" checked> Interno</label>
+    </div>
+
+    <canvas id="chart" style="width: 100%; height: 100%;"></canvas>
+</main>
+<script>
+const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w';
+const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww';
+const chartCanvas = document.getElementById('chart').getContext('2d');
+let chartInstance;
+
+document.querySelectorAll('input[name="fonte"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    if (radio.value === "Externo") {
+      // Redireciona para causaexterno.html
+      window.location.href = 'causaexterno.html';
+    } else {
+      // Carrega os dados da aba "Interno" da planilha
+      carregarDados('Interno');
+    }
+  });
+});
+
+async function carregarDados(abaSelecionada = 'Interno') {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${abaSelecionada}?key=${apiKey}`;
+  const response = await fetch(url);
+  const json = await response.json();
+  const valores = json.values;
+
+  const headers = valores[0];
+  const sprintIdx = headers.findIndex(h => h.trim().toLowerCase() === "sprint");
+  const causaIdx = headers.findIndex(h => h.trim().toLowerCase() === "causa");
+
+  const contagem = {};
+  valores.slice(1).forEach(row => {
+    const sprint = row[sprintIdx]?.trim();
+    const causa = row[causaIdx]?.trim();
+    if (!sprint || !causa) return;
+    if (!contagem[sprint]) contagem[sprint] = {};
+    if (!contagem[sprint][causa]) contagem[sprint][causa] = 0;
+    contagem[sprint][causa]++;
+  });
+
+  const sprints = Object.keys(contagem).sort();
+  const causas = Array.from(new Set(sprints.flatMap(s => Object.keys(contagem[s])))).sort();
+
+  const datasets = causas.map(causa => ({
+    label: causa,
+    data: sprints.map(sprint => {
+      const total = Object.values(contagem[sprint]).reduce((a, b) => a + b, 0);
+      const valor = contagem[sprint][causa] || 0;
+      return {
+        x: sprint,
+        y: (valor / total * 100),
+        raw: valor
+      };
+    }),
+    backgroundColor: corFixa(causa)
+  }));
+
+  renderChart(sprints, datasets);
+}
+
+function renderChart(sprints, datasets) {
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+
+  chartInstance = new Chart(chartCanvas, {
+    type: 'bar',
+    data: {
+      labels: sprints,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'center',
+          align: 'center',
+          formatter: function(value) {
+            if (value.raw === 0) return '';
+            return `${value.raw} (${value.y.toFixed(1)}%)`;
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          max: 100,
+          title: {
+            display: true,
+            text: 'Porcentagem (%)'
+          }
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+}
+
+function corFixa(causa) {
+  const cores = {
+    "Dúvida de Uso": "#3F51B5",            // Azul índigo
+    "Erro Humano": "#E91E63",              // Rosa vibrante
+    "Erro do Sistema": "#009688",          // Verde-água / teal
+    "Inconsistência Temporária": "#FFC107", // Amarelo
+    "Solicitação Operacional": "#795548",  // Marrom elegante
+    "Outro": "#607D8B"                     // Cinza azulado
+  };
+  return cores[causa] || "#9E9E9E";        // fallback cinza
+}
+
+// Inicializa carregando os dados da aba "Interno"
+carregarDados();
+</script>
+</body>
+</html>

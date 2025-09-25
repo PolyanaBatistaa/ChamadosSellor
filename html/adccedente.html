@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abertura de Chamado</title>
+  <link rel="icon" type="image/png" href="../img/logo1.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/form.css">
+  <style>
+    /* Botão visualizar fixado */
+    .visualizar-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background: #0c442c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .visualizar-btn:hover {
+      background: #145c40;
+    }
+
+    /* Estilo do modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .modal-content h3 {
+      margin-bottom: 15px;
+      color: #0c442c;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .modal-content button {
+      padding: 8px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-ok {
+      background: #0c442c;
+      color: white;
+    }
+    .btn-ok:hover { background: #145c40; }
+    .btn-cancel {
+      background: #ccc;
+    }
+    .btn-cancel:hover { background: #aaa; }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <img src="../img/logob.png" alt="Logo">
+  </header>
+
+  <!-- MAIN -->
+  <main class="card">
+    <h2><i class="ri-file-list-3-line"></i> Incluir Cedente </h2>
+
+    <div class="form-container">
+      <form id="cedenteForm" onsubmit="adicionarCedente(event)">
+        <div class="form-group">
+          <label for="nomeCedente">Nome do Cedente:</label>
+          <input type="text" id="nomeCedente" name="nomeCedente" placeholder="Digite o nome do cedente" required>
+        </div>
+        <div class="form-group">
+          <label for="cnpjCedente">CNPJ do Cedente:</label>
+          <input type="text" id="cnpjCedente" name="cnpjCedente" placeholder="Digite o CNPJ do cedente" required>
+        </div>
+        <div class="btn-container">
+          <button type="submit" class="btn">Incluir</button>
+          <button type="button" class="btn" onclick="window.location.href='suporte.html';">Voltar</button>
+        </div>
+        <p id="msg"></p>
+      </form>
+    </div>
+  </main>
+
+  <!-- BOTÃO VISUALIZAR -->
+  <button class="visualizar-btn" onclick="abrirModal()">👁 Visualizar Cedentes</button>
+
+  <!-- MODAL DE SENHA -->
+  <div id="senhaModal" class="modal">
+    <div class="modal-content">
+      <h3>Digite a senha</h3>
+      <input type="password" id="senhaInput" placeholder="Senha" />
+      <br>
+      <button class="btn-ok" onclick="verificarSenha()">OK</button>
+      <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+      <p id="erroSenha" style="color:red; font-size:14px; display:none;">❌ Senha incorreta</p>
+    </div>
+  </div>
+
+  <script>
+    function adicionarCedente(event) {
+      event.preventDefault();
+      const nomeCedente = document.getElementById("nomeCedente").value.trim();
+      const cnpjCedente = document.getElementById("cnpjCedente").value.trim();
+      const msg = document.getElementById("msg");
+
+      if (nomeCedente && cnpjCedente) {
+        const novosCedentes = JSON.parse(localStorage.getItem("novosCedentes") || "[]");
+        novosCedentes.push({ nome: nomeCedente, cnpj: cnpjCedente });
+        localStorage.setItem("novosCedentes", JSON.stringify(novosCedentes));
+
+        msg.textContent = "✅ Cedente adicionado com sucesso!";
+        msg.style.color = "green";
+        document.getElementById("cedenteForm").reset();
+      } else {
+        msg.textContent = "⚠️ Por favor, preencha todos os campos.";
+        msg.style.color = "red";
+      }
+    }
+
+    // Modal de senha
+    function abrirModal() {
+      document.getElementById("senhaModal").style.display = "flex";
+      document.getElementById("senhaInput").value = "";
+      document.getElementById("erroSenha").style.display = "none";
+    }
+
+    function fecharModal() {
+      document.getElementById("senhaModal").style.display = "none";
+    }
+
+    function verificarSenha() {
+      const senha = document.getElementById("senhaInput").value;
+      if (senha === "58230456") {
+        window.location.href = "listarcedente.html";
+      } else {
+        document.getElementById("erroSenha").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

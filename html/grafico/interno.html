@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos</title>
+    <link rel="icon" type="image/png" href="../../img/logo1.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="header">
+  <img src="../../img/logob.png" alt="Logo">
+  <h1><i class="ri-bar-chart-2-fill"></i> Gráficos</h1>
+  <a class="back-btn" href="../suporte.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+</header>
+
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav class="menu">
+                <a href="total.html" class="menu-item ">Total de Chamados</a>
+                <a href="externoxinterno.html" class="menu-item">Externo x Interno</a>
+                <a href="responsavel.html" class="menu-item ">Responsável</a>
+                <a href="externo.html" class="menu-item ">Externo - Serviço</a>
+                <a href="interno.html" class="menu-item active">Interno - Sistemas</a>
+                <a href="causaexterno.html" class="menu-item">Causas</a>
+            </nav>
+        </aside>
+<main class="main-content">
+            <h2>Chamados Interno por (Sistemas)</h2>
+        <canvas id="chart" style="width: 100%; height: 100%;"></canvas>
+</main>
+
+<script>
+    const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w';
+    const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww';
+    const range = 'Interno';
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+const fixedColors = {
+    "Sigs Produção": "#545c34",             // laranja vibrante
+    "Certificadora": "#098CC7",             // azul claro
+    "Portal": "#f3bb04",                    // marrom médio 8D6E63
+    "SQL": "#AB47BC",                       // roxo médio
+    "CRM": "#66BB6A",                       // verde médio
+    "Relatório": "#9cccc4",                 // azul vívido
+    "Memorial de Cálculo": "#DCE775",       // verde limão suave
+    "Sigs Web": "#FFD54F",                  // amarelo vivo
+    "Parametrização": "#5C6BC0",            // azul escuro
+    "Verificar Disparo": "#A1887F",         // marrom acinzentado
+    "Opera Facil": "#EF5350",               // vermelho vibrante
+    "Verificar assinaturas": "#B39DDB",     // lilás claro
+    "Abrir Operação": "#acac0c",            // cinza azulado
+    "API": "#26A69A",                       // verde água
+    "Remessa/Retorno": "#9CCC65",           // verde erva
+    "Forçar Fechamento de Ciclo": "#F06292",// rosa forte
+    "Serasa": "#FFF176",  
+	"Motor": "#FF1493", 
+    "Outros": "#8B008B	"                     // cinza neutro
+};
+
+
+
+
+
+    let originalData = [];
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.values) {
+                originalData = data.values;
+                renderChart(originalData);
+            } else {
+                console.error('Nenhum dado encontrado na planilha.');
+            }
+        })
+        .catch(error => console.error('Erro ao buscar dados:', error));
+
+    function renderChart(data) {
+        const headers = data[0];
+        const sprintIndex = headers.indexOf("Sprint");
+        const sistemaIndex = headers.indexOf("Sistema");
+        const counts = {};
+
+        data.slice(1).forEach(row => {
+            const sprint = row[sprintIndex];
+            const sistema = row[sistemaIndex];
+            if (!counts[sprint]) {
+                counts[sprint] = {};
+            }
+            if (!counts[sprint][sistema]) {
+                counts[sprint][sistema] = 0;
+            }
+            counts[sprint][sistema]++;
+        });
+
+        let sprints = Object.keys(counts);
+sprints.sort((a, b) => {
+  const getNumber = str => parseInt(str.match(/\d+/)) || 0;
+  return getNumber(b) - getNumber(a);
+});
+
+let sistemas = Array.from(new Set(Object.values(counts).flatMap(sprint => Object.keys(sprint))));
+
+// Garante que "Outros" sempre fique no final
+sistemas = sistemas.filter(s => s !== "Outros").concat("Outros");
+
+const dataset = sistemas.map(sistema => ({
+    label: sistema,
+    data: sprints.map(sprint => counts[sprint][sistema] || 0),
+    backgroundColor: fixedColors[sistema] || "#CCCCCC" // cor fallback caso falte alguma no fixedColors
+}));
+
+
+        const chartData = {
+            labels: sprints,
+            datasets: dataset
+        };
+
+        const ctx = document.getElementById('chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                indexAxis: 'y', // horizontal
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        beginAtZero: true
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            }
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

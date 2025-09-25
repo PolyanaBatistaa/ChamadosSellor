@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalhes do Chamado</title>
+  <link rel="icon" type="logo1/png" href="../img/logo1.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0c442c;
+      padding: 10px 20px;
+      color: #fff;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #444;
+    }
+
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .details-table th, 
+    .details-table td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .details-table th {
+      width: 200px;
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+
+    .details-table td {
+      background: #fafafa;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 20px;
+      background: #0c442c;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn-back:hover {
+      background: #444;
+    }
+
+    .anexo-link {
+      color: #007bff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img src="../img/logob.png" alt="Logo">
+    <a href="acompanhar.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+  </header>
+
+  <div class="container">
+    <h2>Detalhes do Chamado</h2>
+    <table class="details-table" id="details"></table>
+    <a href="acompanhar.html" class="btn-back"><i class="ri-arrow-left-line"></i> Voltar</a>
+  </div>
+
+<script>
+  function getParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const entries = {};
+    urlParams.forEach((value, key) => {
+      entries[key] = value;
+    });
+    return entries;
+  }
+
+  function renderDetails() {
+    const params = getParams();
+    const table = document.getElementById("details");
+
+    const campos = [
+      "ID",
+      "Data de Cadastro",
+      "Chamado",
+      "Responsável",
+      "Cedente",
+      "Solicitante",
+      "Veículo",
+      "Sprint",
+      "Causa",
+      "Sistema",
+      "Serviço",
+      "Anexo",
+      "Descrição do problema",
+      "Solução"
+    ];
+
+    let html = "";
+    campos.forEach(campo => {
+      let valor = params[campo] || "N/A";
+      
+      // se for anexo, mostra como link
+      if (campo === "Anexo" && valor !== "N/A" && valor.trim() !== "") {
+        valor = `<a href="${valor}" target="_blank" class="anexo-link">Ver Anexo</a>`;
+      }
+
+      html += `
+        <tr>
+          <th>${campo}</th>
+          <td>${valor}</td>
+        </tr>
+      `;
+    });
+
+    table.innerHTML = html;
+  }
+
+  renderDetails();
+</script>
+
+</body>
+</html>

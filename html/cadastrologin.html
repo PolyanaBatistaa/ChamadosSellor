@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <style>
+        /* Estilos adicionais para as mensagens de feedback */
+        #msg {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../img/logob.png" class="logo" alt="Logo">
+    </header>
+
+    <div class="login-container">
+        <h2>Cadastro</h2>
+        <form id="formCadastro" action="https://script.google.com/macros/s/AKfycbw4FmCEwFwbRx7q1ybZSOuP-OCRgXCgPzNd3AWJXHRageh2cqtMi_4LQhjRKGT3a9JQ2A/exec" method="POST">
+            <input type="email" id="email" name="email" placeholder="E-mail" required>
+            <input type="password" id="senha" name="senha" placeholder="Senha" required minlength="6">
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p id="msg"></p>
+        <p>Já tem conta? <a href="../index.html">Faça login</a></p>
+    </div>
+
+   <script>
+    const form = document.getElementById('formCadastro');
+    const msgElement = document.getElementById('msg');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        
+        msgElement.textContent = '';
+        msgElement.className = '';
+        msgElement.textContent = 'Carregando...';
+
+        // Captura valores tratados
+        let email = document.getElementById("email").value.trim();
+        let senha = String(document.getElementById("senha").value.trim()); // força string
+
+        // Verifica se a senha contém espaço
+        if (/\s/.test(senha)) {
+            msgElement.textContent = 'A senha não pode conter espaços.';
+            msgElement.className = 'error';
+            return;
+        }
+
+        // Verifica se a senha contém pelo menos uma letra
+        if (!/[a-zA-Z]/.test(senha)) {
+            msgElement.textContent = 'A senha deve conter pelo menos uma letra.';
+            msgElement.className = 'error';
+            return;
+        }
+
+        // Monta manualmente o FormData
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("senha", senha);
+
+        const url = form.getAttribute('action');
+        
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.text())
+        .then(text => {
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                console.warn("Resposta não era JSON, retornando texto bruto:", text);
+                data = { success: true, message: text };
+            }
+
+            if (data.success) {
+                msgElement.textContent = 'Usuário cadastrado com sucesso! Redirecionando para o login...';
+                msgElement.className = 'success';
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 3000);
+            } else {
+                msgElement.textContent = 'Erro: ' + data.message;
+                msgElement.className = 'error';
+            }
+        })
+        .catch(error => {
+            msgElement.textContent = 'Erro na requisição. Verifique sua conexão e tente novamente.';
+            msgElement.className = 'error';
+            console.error('Erro:', error);
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos</title>
+    <link rel="icon" type="image/png" href="../../img/logo1.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="header">
+  <img src="../../img/logob.png" alt="Logo">
+  <h1><i class="ri-bar-chart-2-fill"></i> Gráficos</h1>
+  <a class="back-btn" href="../suporte.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+</header>
+
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav class="menu">
+                <a href="total.html" class="menu-item ">Total de Chamados</a>
+                <a href="externoxinterno.html" class="menu-item">Externo x Interno</a>
+                <a href="responsavel.html" class="menu-item ">Responsável</a>
+                <a href="externo.html" class="menu-item active">Externo - Serviço</a>
+                <a href="interno.html" class="menu-item">Interno - Sistemas</a>
+                <a href="causaexterno.html" class="menu-item">Causas</a>
+            </nav>
+        </aside>
+<main class="main-content">
+            <h2>Chamados Totais por Responsável e Sprint</h2>
+        <canvas id="chart" style="width: 100%; height: 100%;"></canvas>
+
+</main>
+
+  <script>
+    const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w';
+    const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww';
+    const range = 'Externo';
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    const fixedColors = {
+      "Acesso ao Portal": "#3a86ff",
+      "Certificadora": "#2a9d8f",
+      "Subida de Operação": "#ffdd57",
+      "Portal (Dúvidas)": "#faa307",
+      "Apresentação do Portal": "#f3722c",
+      "Arquivos": "#76B041",
+      "Outros": "#adb5bd",
+      "Homologação": "#8338ec",
+      "Memorial de Cálculo": "#277da1",
+      "API": "#70c1b3",
+      "Arquivos (Retorno, Remessa, Boleto e Xml)": "#A52A2A"
+    };
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.values) {
+          renderChart(data.values);
+        } else {
+          console.error('Nenhum dado encontrado na planilha.');
+        }
+      })
+      .catch(error => console.error('Erro ao buscar dados:', error));
+
+    function renderChart(data) {
+      const headers = data[0];
+      const sprintIndex = headers.indexOf("Sprint");
+      const servicoIndex = headers.indexOf("Serviço");
+
+      const counts = {};
+
+      data.slice(1).forEach(row => {
+        const sprint = row[sprintIndex];
+        const servico = row[servicoIndex] || "Outros";
+        if (!counts[sprint]) counts[sprint] = {};
+        if (!counts[sprint][servico]) counts[sprint][servico] = 0;
+        counts[sprint][servico]++;
+      });
+
+      const sprints = Object.keys(counts).sort((a, b) => {
+        const getNumber = str => parseInt(str.match(/\d+/)) || 0;
+        return getNumber(b) - getNumber(a);
+      });
+
+      let servicos = Array.from(new Set(Object.values(counts).flatMap(obj => Object.keys(obj))))
+        .filter(s => fixedColors.hasOwnProperty(s));
+
+      if (servicos.includes("Outros")) {
+        servicos = servicos.filter(s => s !== "Outros");
+        servicos.push("Outros");
+      }
+
+      const datasets = servicos.map(servico => ({
+        label: servico,
+        data: sprints.map(sprint => counts[sprint][servico] || 0),
+        backgroundColor: fixedColors[servico]
+      }));
+
+      const ctx = document.getElementById('chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: sprints,
+          datasets: datasets
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 20
+              }
+            }
+            // Título removido aqui
+          },
+          scales: {
+            x: {
+              stacked: true,
+              beginAtZero: true
+            },
+            y: {
+              stacked: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

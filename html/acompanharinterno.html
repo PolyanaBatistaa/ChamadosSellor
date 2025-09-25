@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acompanhamento</title>
+   <link rel="icon" type="logo1/png" href="../img/logo1.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/acompanhar.css">
+
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <img src="../img/logob.png" alt="Logo">
+      <a class="back-btn" href="suporte.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+    </div>
+  </header>
+
+  <div class="menu11">
+    <div class="op ">
+      <a href="acompanhar.html">Externo</a>
+    </div>
+    <div class="op selected">
+      <a href="acompanharinterno.html">Interno</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="filters">
+      <div class="filter-group">
+        <label for="responsavel">Filtrar por Responsável:</label>
+        <input type="text" id="responsavel" placeholder="Digite o responsável" oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label for="sprint">Filtrar por Sprint:</label>
+        <input type="text" id="sprint" placeholder="Digite a sprint" oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label for="Sistema">Filtrar por Sistema:</label>
+        <input type="text" id="Sistema" placeholder="Digite o Sistema" oninput="applyFilters()">
+      </div>
+    </div>
+
+    <div id="data"></div>
+    <button class="view-sprint-button" onclick="window.location.href='Internoantigo.html';">Ver Sprints Antigas</button>
+  </div>
+
+<script>
+    const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w'; 
+    const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww'; 
+    const range = 'Interno'; 
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    let originalData = [];
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.values) {
+                originalData = data.values;
+                renderTable(originalData);
+            } else {
+                console.error('Nenhum dado encontrado na planilha.');
+            }
+        })
+        .catch(error => console.error('Erro ao buscar dados:', error));
+
+    function renderTable(data) {
+        if (!data.length) return;
+
+        const headers = data[0];
+        const idIndex = headers.indexOf("ID");
+        const cedenteIndex = headers.indexOf("Cedente");
+        const responsavelIndex = headers.indexOf("Responsável");
+        const sprintIndex = headers.indexOf("Sprint");
+        const servicoIndex = headers.indexOf("Serviço");
+        const descricaoIndex = headers.indexOf("Descrição do problema");
+
+        let html = '<table>';
+        html += `
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cedente</th>
+              <th>Responsável</th>
+              <th>Sprint</th>
+              <th>Serviço</th>
+              <th>Descrição</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
+
+        data.slice(1).forEach((row) => {
+            // Passa a linha inteira como JSON para o botão
+            const rowData = encodeURIComponent(JSON.stringify(row));
+
+            html += `
+              <tr>
+                <td>${row[idIndex] || 'N/A'}</td>
+                <td>${row[cedenteIndex] || 'N/A'}</td>
+                <td>${row[responsavelIndex] || 'N/A'}</td>
+                <td>${row[sprintIndex] || 'N/A'}</td>
+                <td>${row[servicoIndex] || 'N/A'}</td>
+                <td class="descricao-limitada">${row[descricaoIndex] || 'N/A'}</td>
+                <td><button class="ver-mais-btn" onclick="verMais('${rowData}')">Ver Mais</button></td>
+              </tr>
+            `;
+        });
+
+        html += '</tbody></table>';
+        document.getElementById('data').innerHTML = html;
+    }
+
+    function applyFilters() {
+        const responsavelFilter = document.getElementById('responsavel').value.toLowerCase();
+        const sprintFilter = document.getElementById('sprint').value.toLowerCase();
+        const SistemaFilter = document.getElementById('Sistema').value.toLowerCase();
+
+        const headers = originalData[0];
+        const responsavelIndex = headers.indexOf("Responsável");
+        const sprintIndex = headers.indexOf("Sprint");
+        const SistemaIndex = headers.indexOf("Sistema");
+
+        const filteredData = originalData.filter((row, index) => {
+            if (index === 0) return true;
+            const responsavelMatches = responsavelFilter ? row[responsavelIndex]?.toLowerCase().includes(responsavelFilter) : true;
+            const sprintMatches = sprintFilter ? row[sprintIndex]?.toLowerCase().includes(sprintFilter) : true;
+            const SistemaMatches = SistemaFilter ? row[SistemaIndex]?.toLowerCase().includes(SistemaFilter) : true;
+            return responsavelMatches && sprintMatches && SistemaMatches;
+        });
+
+        renderTable(filteredData);
+    }
+
+    function verMais(rowData) {
+        const row = JSON.parse(decodeURIComponent(rowData));
+        const headers = originalData[0];
+        const params = new URLSearchParams();
+
+        headers.forEach((header, i) => {
+            params.append(header, row[i] || '');
+        });
+
+        window.location.href = `detalhe.html?${params.toString()}`;
+    }
+</script>
+
+</body>
+</html>

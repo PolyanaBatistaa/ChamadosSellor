@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Chamados</title>
+	 <link rel="icon" type="logo1/png" href="../img/logo1.png">
+    <style>
+        body, h2, p {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("../img/fundo.png") no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo {
+            height: 100px;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: #123d2a;
+        }
+
+        .btn-sair {
+            padding: 6px 12px;
+            background-color: #0d3d2a;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-sair:hover {
+            background-color: #145c40;
+        }
+
+        .message-container {
+            width: 400px;
+            padding: 30px;
+            background: rgba(240, 240, 240, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .message-container h2 {
+            margin-bottom: 25px;
+            color: #123d2a;
+        }
+
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 12px 0;
+            background-color: #0d3d2a;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #145c40;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../img/logob.png" class="logo" alt="Logo">
+    </header>
+
+<div class="user-info">
+  <span id="userName"></span>
+  <button class="btn-sair" onclick="logout()">Sair</button>
+</div>
+
+
+
+    <div class="message-container">
+        <h2>Bem-vindo!</h2>
+        <button class="btn" onclick="window.location.href='suporte.html'">Novo Chamado</button>
+        <button class="btn" onclick="window.location.href='acompanhar.html'">Acompanhar Chamado</button>
+        <button class="btn" onclick="window.location.href='adccedente.html'">Novo Cedente</button>
+		    <button class="btn" onclick="window.location.href='grafico/total.html'">Gráficos</button>
+    </div>
+
+ <script>
+
+    const userName = document.getElementById("userName");
+
+    // Exibe nome do usuário no header
+    userName.textContent = localStorage.getItem("nomeUsuario") || "Usuário";
+
+   
+
+    function voltar() { window.history.back(); }
+    function logout() { localStorage.removeItem("nomeUsuario"); window.location.href = "login.html"; }
+
+
+</script>
+
+</body>
+</html>

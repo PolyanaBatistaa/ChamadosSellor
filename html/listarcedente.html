@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cedentes Salvos</title>
+  <link rel="icon" type="image/png" href="../img/logo1.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/form.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #0c442c;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    .btn {
+      margin-top: 20px;
+      margin-right: 10px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0c442c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #145c40;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <img src="../img/logob.png" alt="Logo">
+  </header>
+
+  <!-- MAIN -->
+  <main class="card">
+    <h2><i class="ri-database-2-line"></i> Cedentes Salvos </h2>
+
+    <table id="cedentesTable">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CNPJ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dados serão inseridos aqui -->
+      </tbody>
+    </table>
+
+    <div>
+      <button class="btn" onclick="window.location.href='adccedente.html';">
+        ➕ Adicionar Novo Cedente
+      </button>
+      <button class="btn" onclick="window.location.href='adccedente.html';">
+        ⬅️ Voltar
+      </button>
+      <button class="btn" onclick="limparCedentes()">
+        🗑️ Limpar Cedentes
+      </button>
+    </div>
+  </main>
+
+  <script>
+    function carregarCedentes() {
+      const cedentes = JSON.parse(localStorage.getItem("novosCedentes") || "[]");
+      const tbody = document.querySelector("#cedentesTable tbody");
+
+      if (cedentes.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="2">Nenhum cedente cadastrado.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = ""; // limpa antes de renderizar
+      cedentes.forEach(c => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${c.nome}</td>
+          <td>${c.cnpj}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function limparCedentes() {
+      if (confirm("Tem certeza que deseja excluir todos os cedentes?")) {
+        localStorage.removeItem("novosCedentes");
+        carregarCedentes();
+      }
+    }
+
+    window.onload = carregarCedentes;
+  </script>
+</body>
+</html>
