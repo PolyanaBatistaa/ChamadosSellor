@@ -144,14 +144,14 @@ function renderChart(sprints, datasets) {
 
 function corFixa(causa) {
   const cores = {
-    "Dúvida de Uso": "#3F51B5",            // Azul índigo
-    "Erro Humano": "#E91E63",              // Rosa vibrante
-    "Erro do Sistema": "#009688",          // Verde-água / teal
-    "Inconsistência Temporária": "#FFC107", // Amarelo
-    "Solicitação Operacional": "#795548",  // Marrom elegante
-    "Outro": "#607D8B"                     // Cinza azulado
+    "Dúvida de Uso": "#A3C4F3",              // 💙 Azul pastel
+    "Erro Humano": "#F7A7A3",                // ❤️ Rosa claro / salmão pastel
+    "Erro do Sistema": "#A8E6CF",            // 💚 Verde menta suave
+    "Inconsistência Temporária": "#FFF3B0",  // 💛 Amarelo claro quente
+    "Solicitação Operacional": "#CBB2FE",    // 💜 Lilás pastel
+    "Outro": "#B0E0E6"                       // 💎 Azul bebê / turquesa pastel
   };
-  return cores[causa] || "#9E9E9E";        // fallback cinza
+  return cores[causa] || "#D3D3D3";          // fallback cinza claro
 }
 
 // Inicializa carregando os dados da aba "Interno"
@@ -159,3 +159,4 @@ carregarDados();
 </script>
 </body>
 </html>
+
