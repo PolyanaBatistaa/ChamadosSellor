@@ -93,16 +93,15 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <img src="../img/logob.png" alt="Logo">
-    <a href="acompanhar.html"><i class="ri-arrow-left-line"></i> Voltar</a>
+    <a id="voltarTopo"><i class="ri-arrow-left-line"></i> Voltar</a>
   </header>
 
   <div class="container">
     <h2>Detalhes do Chamado</h2>
     <table class="details-table" id="details"></table>
-    <a href="acompanhar.html" class="btn-back"><i class="ri-arrow-left-line"></i> Voltar</a>
+    <a id="voltarBtn" class="btn-back"><i class="ri-arrow-left-line"></i> Voltar</a>
   </div>
 
 <script>
@@ -139,8 +138,6 @@
     let html = "";
     campos.forEach(campo => {
       let valor = params[campo] || "N/A";
-      
-      // se for anexo, mostra como link
       if (campo === "Anexo" && valor !== "N/A" && valor.trim() !== "") {
         valor = `<a href="${valor}" target="_blank" class="anexo-link">Ver Anexo</a>`;
       }
@@ -154,9 +151,34 @@
     });
 
     table.innerHTML = html;
+
+    // Monta link de volta preservando filtros
+    const filtros = new URLSearchParams();
+    if (params.responsavel) filtros.set("responsavel", params.responsavel);
+    if (params.sprint) filtros.set("sprint", params.sprint);
+    if (params.servico) filtros.set("servico", params.servico);
+
+    const backUrl = "acompanhar.html" + (filtros.toString() ? "?" + filtros.toString() : "");
+    document.getElementById("voltarTopo").href = backUrl;
+    document.getElementById("voltarBtn").href = backUrl;
   }
 
   renderDetails();
+  // 🔙 Ajuste do botão "Voltar"
+document.querySelectorAll('.btn-back, header a').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams(window.location.search);
+    const origem = params.get('origem');
+
+    if (origem === 'interno') {
+      window.location.href = 'acompanharinterno.html';
+    } else {
+      window.location.href = 'acompanhar.html';
+    }
+  });
+});
+
 </script>
 
 </body>
