@@ -223,7 +223,7 @@
 
         <div>
           <label for="causa"><i class="ri-bug-line"></i> Causa</label>
-          <select id="causa" name="causa">
+          <select id="causa" name="causa" required>
 						<option value="">Selecione...</option>
 						<option value="Erro do Sistema ">Erro do Sistema </option>
 						<option value="Erro Humano">Erro Humano</option>
@@ -237,17 +237,17 @@
         <!-- Campos dinâmicos -->
         <div id="campoServico" style="display:none;">
           <label for="servico"><i class="ri-tools-line"></i> Serviço</label>
-          <select id="servico" name="servico">
+          <select id="servico" name="servico" required>
             <option value="">Selecione...</option>
            
 <option value="Subida de Operação">Subida de Operação</option>
-<option value="Portal (Duvidas)">Portal (Duvidas)</option>
+<option value="Portal (Duvidas)">Portal (Dúvidas)</option>
 <option value="Acesso ao Portal">Acesso ao Portal</option>
 <option value="Homologação">Homologação</option>
 <option value="Certificadora">Certificadora</option>
 <option value="API">API</option>
 <option value="Memorial de Cálculo">Memorial de Cálculo</option>
-<option value="Arquivos  (Retorno, Remessa, Boleto e Xml)">Arquivos  (Retorno, Remessa, Boleto e Xml)</option>
+<option value="Arquivos  (Retorno, Remessa, Boleto e Xml)">Arquivos (Retorno, Remessa, Boleto e Xml)</option>
 <option value="Apresentação do Portal">Apresentação do Portal</option>
 <option value="Outros">Outros</option>
 
@@ -256,7 +256,7 @@
 
         <div id="campoSistema" style="display:none;">
           <label for="sistema"><i class="ri-computer-line"></i> Sistema</label>
-          <select id="sistema" name="sistema">
+          <select id="sistema" name="sistema" required>
             <option value="">Selecione...</option>
             <option value="Certificadora">Certificadora</option>
 <option value="Sigs Produção">Sigs Produção</option>
@@ -290,7 +290,7 @@
       </div>
       <div>
         <label for="solucao"><i class="ri-lightbulb-flash-line"></i> Solução</label>
-        <textarea id="solucao" name="solucao" rows="3"></textarea>
+        <textarea id="solucao" name="solucao" rows="3" required></textarea>
       </div>
 
       <div class="btn-container">
@@ -448,3 +448,4 @@
 
 </body>
 </html>
+
