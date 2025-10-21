@@ -14,6 +14,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
   </style>
 </head>
 <body>
@@ -52,7 +53,6 @@
 
     <button class="view-sprint-button" onclick="window.location.href='Internoantigo.html';">Ver Sprints Antigas</button>
   </div>
-
 <script>
   const sheetId = '1izuOnEttbuFD36JcsE5S8sFbl3L_y12f5LacQBG9x1w'; 
   const apiKey = 'AIzaSyA-aZjrMoRGcyuIlO-RbtaaFOZRHA4YGww'; 
@@ -60,25 +60,20 @@
   const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
   let originalData = [];
 
-  // 🔹 Recuperar filtros salvos (caso tenha voltado do detalhe)
-  const savedFilters = JSON.parse(localStorage.getItem('filtrosInterno')) || {};
-
-  document.getElementById('responsavel').value = savedFilters.responsavel || '';
-  document.getElementById('sprint').value = savedFilters.sprint || '';
-  document.getElementById('Sistema').value = savedFilters.sistema || '';
-
+  // 🔹 Carrega os dados da planilha
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       if (data.values) {
         originalData = data.values;
-        applyFilters(); // 🔹 aplica filtros ao carregar
+        applyFilters();
       } else {
         console.error('Nenhum dado encontrado na planilha.');
       }
     })
     .catch(error => console.error('Erro ao buscar dados:', error));
 
+  // 🔹 Renderiza tabela
   function renderTable(data) {
     if (!data.length) return;
 
@@ -122,6 +117,7 @@
     document.getElementById('data').innerHTML = html;
   }
 
+  // 🔹 Aplica os filtros (sem salvar nada)
   function applyFilters() {
     const responsavelFilter = document.getElementById('responsavel').value.toLowerCase();
     const sprintFilter = document.getElementById('sprint').value.toLowerCase();
@@ -143,22 +139,13 @@
     renderTable(filteredData);
   }
 
-  // 🔹 Salva filtros ao digitar
+  // 🔹 Atualiza a tabela conforme digita (sem salvar)
   function applyFiltersAndSave() {
-    const filters = {
-      responsavel: document.getElementById('responsavel').value,
-      sprint: document.getElementById('sprint').value,
-      sistema: document.getElementById('Sistema').value
-    };
-    localStorage.setItem('filtrosInterno', JSON.stringify(filters));
     applyFilters();
   }
 
-  // ✅ Ajustado: "Ver Mais" leva apenas a linha e apaga filtros antes
+  // ✅ Abre os detalhes em nova aba
   function verMais(rowData) {
-    // Limpa filtros antes de mudar de página
-    localStorage.removeItem('filtrosInterno');
-
     const row = JSON.parse(decodeURIComponent(rowData));
     const headers = originalData[0];
     const params = new URLSearchParams();
@@ -167,11 +154,8 @@
       params.append(header, row[i] || '');
     });
 
-    params.append('origem', 'interno'); // marca origem da aba
-
-    window.location.href = `detalhe.html?${params.toString()}`;
+    window.open(`detalhe.html?${params.toString()}`, '_blank');
   }
 </script>
-
 </body>
 </html>
