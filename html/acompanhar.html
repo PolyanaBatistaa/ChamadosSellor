@@ -140,17 +140,19 @@
         renderTable(filteredData);
     }
 
-    function verMais(rowData) {
-        const row = JSON.parse(decodeURIComponent(rowData));
-        const headers = originalData[0];
-        const params = new URLSearchParams();
+function verMais(rowData) {
+  const row = JSON.parse(decodeURIComponent(rowData));
+  const headers = originalData[0];
+  const params = new URLSearchParams();
 
-        headers.forEach((header, i) => {
-            params.append(header, row[i] || '');
-        });
+  headers.forEach((header, i) => {
+    params.append(header, row[i] || '');
+  });
 
-        window.location.href = `detalhe.html?${params.toString()}`;
-    }
+  // ✅ Abre o detalhe em uma nova aba
+  window.open(`detalhe.html?${params.toString()}`, '_blank');
+}
+
 </script>
 
 </body>
